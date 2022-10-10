@@ -1,41 +1,46 @@
-import java.util.Queue;
+import java.util.ArrayDeque;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Main {
+        public static List<Person> generateClients(List<Person> temp) {
+
+            temp.add(new Person("Ivan", "Tsarevich", 3));
+            temp.add(new Person("Evpatiy", "Kolovrat", 4));
+            temp.add(new Person("Alyosha", "Popovic", 1));
+            temp.add(new Person("Ilya", "Muromets", 5));
+            temp.add(new Person("Dobrynya", "Nikitich", 2));
+            return temp;
+        }
+
+    public static void print(List<Person> list) {
+        for (int j = 0; j < list.size(); j++) {
+            System.out.println((j + 1) + "." + list.get(j));
+        }
+    }
+
     public static void main(String[] args) {
-        Queue<Person> queueAttraction = new LinkedList<>(generateClients());
+        List<Person> person = new LinkedList<>();
 
-        while (!queueAttraction.isEmpty()) {
-            Person currentPerson = queueAttraction.poll();
-            System.out.printf("%s %s сошёл с аттракциона, имея - %d билет(а/ов)\n",
-                    currentPerson.getName(),
-                    currentPerson.getSureName(),
-                    currentPerson.getQuantityTickets());
+        print(generateClients(person));
 
-            int quantityTickets = currentPerson.getQuantityTickets();
+        ArrayDeque<Person> client = new ArrayDeque<>();
+        for (Person value : person) {
+            client.addLast(value);
+        }
 
-            if (quantityTickets > 0) {
-                System.out.printf("%s %s решил прокатиться на аттракционе, имея - %d билет(а/ов)\n",
-                        currentPerson.getName(),
-                        currentPerson.getSureName(),
-                        currentPerson.getQuantityTickets());
+        while (!client.isEmpty()) {
+            Person p = client.getFirst();
 
-                currentPerson.setQuantityTickets(--quantityTickets);
-                queueAttraction.offer(currentPerson);
+            if (p.count > 0) {
+                p.count -= 1;
+                System.out.println(p.name + " " + p.lastName + " прокатился на атракционе у клиента осталось билетов "
+                        + p.getCount());
+                client.addLast(p);
             }
+            client.poll();
         }
         System.out.println("Билеты закончились");
     }
-
-    private static List<Person> generateClients() {
-        return List.of(
-                new Person("Ivan", "Tsarevich", 3),
-                new Person("Evpatiy", "Kolovrat", 4),
-                new Person("Alyosha", "Popovich", 1),
-                new Person("Ilya", "Muromets", 5),
-                new Person("Dobrynya", "Nikitich", 2));
-
-
-    }
 }
+

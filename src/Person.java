@@ -1,33 +1,30 @@
 public class Person {
 
-    private String name;
-    private String sureName;
-    private int quantityTickets;
+    protected String name;
+    protected String lastName;
+    protected int count = 1;
 
-    public Person(String name, String sureName, int quantityTickets) {
+    public Person(String name, String lastName, int count) {
         this.name = name;
-        this.sureName = sureName;
-        this.quantityTickets = quantityTickets;
+        this.lastName = lastName;
+        this.count = count;
 
     }
 
-    public Person() {
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", count=" + count +
+                '}';
     }
 
-    public String getName() {
-        return name;
+    public void setCount(int count) {
+        this.count = count;
     }
 
-    public String getSureName() {
-        return sureName;
+    public int getCount() {
+        return count;
     }
-
-    public int getQuantityTickets() {
-        return quantityTickets;
-    }
-
-    public void setQuantityTickets(int quantityTickets) {
-        this.quantityTickets = quantityTickets;
-    }
-
 }
